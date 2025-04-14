@@ -1,15 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add Recipe</title>
-</head>
-<body>
+{% extends "recipes/base.html" %}
+
+{% block title %}Add Recipe{% endblock %}
+
+{% block content %}
     <h1>Add a New Recipe</h1>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Save Recipe</button>
+        <button type="submit" class="btn">Save Recipe</button>
     </form>
     <p><a href="{% url 'recipe-list' %}">Back to Recipes</a></p>
-</body>
-</html>
+{% endblock %}

@@ -1,0 +1,50 @@
+{% extends "recipes/base.html" %}
+
+{% block title %}Recipe Search{% endblock %}
+
+{% block content %}
+    <h1>Recipe Search</h1>
+
+    <form method="get" action="{% url 'recipe-search' %}">
+        {{ form.as_p }}
+        <button type="submit" class="btn">Search</button>
+    </form>
+
+    {% if results %}
+        <h2>Search Results</h2>
+        <div class="recipe-grid">
+            {% for recipe in results %}
+                <div class="recipe-card">
+                    {% if recipe.image %}
+                        <img src="{{ recipe.image }}" alt="{{ recipe.title }}">
+                    {% endif %}
+                    <h3>{{ recipe.title }}</h3>
+                    <p>Ready in {{ recipe.readyInMinutes }} minutes</p>
+                    <a href="{% url 'recipe-detail-api' recipe.id %}" class="btn">View Recipe</a>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if page_obj %}
+        <div class="pagination">
+            <span class="step-links">
+                {% if page_obj.has_previous %}
+                    <a href="?query={{ request.GET.query }}&cuisine={{ request.GET.cuisine }}&diet={{ request.GET.diet }}&page=1">&laquo; first</a>
+                    <a href="?query={{ request.GET.query }}&cuisine={{ request.GET.cuisine }}&diet={{ request.GET.diet }}&page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+
+                <span class="current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+
+                {% if page_obj.has_next %}
+                    <a href="?query={{ request.GET.query }}&cuisine={{ request.GET.cuisine }}&diet={{ request.GET.diet }}&page={{ page_obj.next_page_number }}">next</a>
+                    <a href="?query={{ request.GET.query }}&cuisine={{ request.GET.cuisine }}&diet={{ request.GET.diet }}&page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                {% endif %}
+            </span>
+        </div>
+        {% endif %}
+    {% elif 'query' in request.GET %}
+        <p>No results found. Try a different search.</p>
+    {% endif %}
+{% endblock %}

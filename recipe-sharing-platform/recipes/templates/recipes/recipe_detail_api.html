@@ -1,0 +1,48 @@
+{% extends "recipes/base.html" %}
+
+{% block title %}{{ recipe.title }}{% endblock %}
+
+{% block content %}
+<div class="recipe-detail">
+    <h1>{{ recipe.title }}</h1>
+
+    {% if recipe.image %}
+        <img src="{{ recipe.image }}" alt="{{ recipe.title }}" class="recipe-image">
+    {% endif %}
+
+    <div class="recipe-meta">
+        <p><strong>Ready in:</strong> {{ recipe.readyInMinutes }} minutes</p>
+        <p><strong>Servings:</strong> {{ recipe.servings }}</p>
+        {% if recipe.sourceName %}
+            <p><strong>Source:</strong> {{ recipe.sourceName }}</p>
+        {% endif %}
+    </div>
+
+    <h2>Ingredients</h2>
+    <ul class="ingredients-list">
+        {% for ingredient in recipe.extendedIngredients %}
+            <li>{{ ingredient.original }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Instructions</h2>
+    {% if recipe.analyzedInstructions %}
+        <ol class="instructions-list">
+            {% for section in recipe.analyzedInstructions %}
+                {% for step in section.steps %}
+                    <li>{{ step.step }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ol>
+    {% else %}
+        <div class="instructions-text">
+            {{ recipe.instructions|safe }}
+        </div>
+    {% endif %}
+
+    <div class="recipe-footer">
+        <a href="{% url 'recipe-search' %}" class="btn btn-secondary">Back to Search</a>
+        <a href="{% url 'recipe-list' %}" class="btn btn-secondary">Back to My Recipes</a>
+    </div>
+</div>
+{% endblock %}
