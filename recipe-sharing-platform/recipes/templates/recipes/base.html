@@ -162,16 +162,31 @@
 <body>
     <nav>
         <ul>
-            <li><a href="{% url 'recipe-list' %}">Home</a></li>
+            <li><a href="{% url 'home' %}">Home</a></li>
             <li><a href="{% url 'recipe-search' %}">Search Recipes</a></li>
+
             {% if user.is_authenticated %}
+                <li><a href="{% url 'recipe-my-list' %}">My Recipes</a></li>
                 <li><a href="{% url 'recipe-add' %}">Add Recipe</a></li>
-                <li><a href="/admin/logout/">Logout</a></li>
+
+                {% if user.is_staff %}
+                    <li><a href="/admin/">Admin Panel</a></li>
+                {% endif %}
+
+                <form method="post" action="{% url 'logout' %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-secondary" style="background: none; border: none; color: white; cursor: pointer;">
+                        Logout
+                    </button>
+                </form>
+
             {% else %}
-                <li><a href="/admin/login/">Login</a></li>
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
             {% endif %}
         </ul>
     </nav>
+
 
     <div class="container">
         {% if messages %}

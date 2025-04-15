@@ -1,0 +1,28 @@
+{% extends "recipes/base.html" %}
+{% block content %}
+
+<h1>Featured Recipes</h1>
+
+<h2>🔥 Most Viewed</h2>
+<div class="recipe-grid">
+    {% for recipe in most_viewed %}
+        <div class="recipe-card">
+            <h3>{{ recipe.title }}</h3>
+            <p>Views: {{ recipe.views }}</p>
+            <a href="{% url 'recipe-detail-local' recipe.id %}" class="btn">View</a>
+        </div>
+    {% endfor %}
+</div>
+
+<h2>⭐ Highest Rated</h2>
+<div class="recipe-grid">
+    {% for recipe in highest_rated %}
+        <div class="recipe-card">
+            <h3>{{ recipe.title }}</h3>
+            <p>Rating: {{ recipe.rating }}</p>
+            <a href="{% url 'recipe-detail-local' recipe.id %}" class="btn">View</a>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "recipes/base.html" %}
+{% block title %}{{ recipe.title }}{% endblock %}
+{% block content %}
+<div class="recipe-detail">
+    <h1>{{ recipe.title }}</h1>
+    {% if recipe.image %}
+        <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+    {% endif %}
+    <p><strong>Category:</strong> {{ recipe.category }}</p>
+    <p>{{ recipe.description }}</p>
+    <h2>Ingredients</h2>
+    <p>{{ recipe.ingredients|linebreaks }}</p>
+    <h2>Instructions</h2>
+    <p>{{ recipe.instructions|linebreaks }}</p>
+</div>
+{% endblock %}

@@ -20,7 +20,8 @@
                     {% endif %}
                     <h3>{{ recipe.title }}</h3>
                     <p>Ready in {{ recipe.readyInMinutes }} minutes</p>
-                    <a href="{% url 'recipe-detail-api' recipe.id %}" class="btn">View Recipe</a>
+                    <a href="{% url 'recipe-detail-api' recipe.id %}?query={{ request.GET.query }}&cuisine={{ request.GET.cuisine }}&diet={{ request.GET.diet }}" class="btn">View Recipe</a>
+
                 </div>
             {% endfor %}
         </div>

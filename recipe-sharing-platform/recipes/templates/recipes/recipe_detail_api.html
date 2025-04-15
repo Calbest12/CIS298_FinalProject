@@ -40,8 +40,14 @@
         </div>
     {% endif %}
 
+    <h2>Upload Image</h2>
+        {% if recipe.image %}
+            <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+        {% endif %}
+
     <div class="recipe-footer">
-        <a href="{% url 'recipe-search' %}" class="btn btn-secondary">Back to Search</a>
+        <a href="{% url 'recipe-search' %}" class="btn btn-secondary">New Search</a>
+        <a href="{% url 'recipe-search' %}?query={{ query }}&cuisine={{ cuisine }}&diet={{ diet }}" class="btn btn-secondary">Back to Search</a>
         <a href="{% url 'recipe-list' %}" class="btn btn-secondary">Back to My Recipes</a>
     </div>
 </div>

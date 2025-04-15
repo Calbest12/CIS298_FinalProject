@@ -6,13 +6,35 @@ from django.shortcuts import render, redirect
 from .models import Recipe
 from .forms import RecipeForm
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login
+from django.contrib.auth.views import LoginView
+from django.shortcuts import render, get_object_or_404
 
+class CustomLoginView(LoginView):
+    template_name = 'recipes/login.html'
 
+    def get_success_url(self):
+        if self.request.user.is_staff:
+            return '/admin/'
+        return '/'
+
+def homepage(request):
+    most_viewed = Recipe.objects.order_by('-views')[:6]
+    highest_rated = Recipe.objects.order_by('-rating')[:6]
+
+    return render(request, 'recipes/home.html', {
+        'most_viewed': most_viewed,
+        'highest_rated': highest_rated,
+    })
 
 def recipe_list(request):
     recipes = Recipe.objects.all().order_by('-created_at')
     return render(request, 'recipes/recipe_list.html', {'recipes': recipes})
 
+def my_recipes(request):
+    recipes = Recipe.objects.filter(author=request.user)
+    return render(request, 'recipes/recipe_my_list.html', {'recipes': recipes})
 
 @login_required
 def recipe_create(request):
@@ -70,5 +92,36 @@ def recipe_detail_api(request, recipe_id):
     if not recipe:
         messages.error(request, "Recipe not found or API error occurred.")
         return redirect('recipe-list')
+    query = request.GET.get('query', '')
+    cuisine = request.GET.get('cuisine', '')
+    diet = request.GET.get('diet', '')
 
-    return render(request, 'recipes/recipe_detail_api.html', {'recipe': recipe})
+    context = {
+        'recipe': recipe,
+        'query': query,
+        'cuisine': cuisine,
+        'diet': diet,
+    }
+
+    if Recipe.objects.filter(id=recipe_id).exists():
+        db_recipe = Recipe.objects.get(id=recipe_id)
+        db_recipe.views += 1
+        db_recipe.save()
+
+    return render(request, 'recipes/recipe_detail_api.html', context)
+
+def register_user(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, 'Account created and logged in!')
+            return redirect('recipe-my-list')
+    else:
+        form = UserCreationForm()
+    return render(request, 'recipes/register.html', {'form': form})
+
+def recipe_detail_local(request, pk):
+    recipe = get_object_or_404(Recipe, pk=pk)
+    return render(request, 'recipes/recipe_detail_local.html', {'recipe': recipe})
