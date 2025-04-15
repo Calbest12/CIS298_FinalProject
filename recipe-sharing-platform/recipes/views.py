@@ -39,12 +39,12 @@ def my_recipes(request):
 @login_required
 def recipe_create(request):
     if request.method == 'POST':
-        form = RecipeForm(request.POST)
+        form = RecipeForm(request.POST, request.FILES)
         if form.is_valid():
             recipe = form.save(commit=False)
             recipe.author = request.user
             recipe.save()
-            return redirect('recipe-list')
+            return redirect('recipe-my-list')
     else:
         form = RecipeForm()
     return render(request, 'recipes/recipe_form.html', {'form': form})

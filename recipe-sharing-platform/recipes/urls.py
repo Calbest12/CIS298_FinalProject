@@ -2,8 +2,6 @@ from django.urls import path
 from .views import CustomLoginView, register_user, my_recipes, homepage
 from . import views
 from django.contrib.auth.views import LogoutView
-from django.conf import settings
-from django.conf.urls.static import static
 from django.contrib import messages
 
 class CustomLogoutView(LogoutView):
@@ -22,5 +20,4 @@ urlpatterns = [
     path('register/', register_user, name='register'),
     path('my-recipes/', my_recipes, name='recipe-my-list'),
     path('recipe/<int:pk>/', views.recipe_detail_local, name='recipe-detail-local'),
-
-]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]

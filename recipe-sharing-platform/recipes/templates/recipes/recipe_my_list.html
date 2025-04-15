@@ -7,12 +7,13 @@
         {% for recipe in recipes %}
             <div class="recipe-card">
                 <h2>{{ recipe.title }}</h2>
-                <p>{{ recipe.description|truncatechars:100 }}</p>
-                <p><em>{{ recipe.created_at|date:"M d, Y" }}</em></p>
-                <a href="{% url 'recipe-detail-local' recipe.id %}" class="btn">View</a>
                 {% if recipe.image %}
                     <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
                 {% endif %}
+                <p>{{ recipe.description|truncatechars:100 }}</p>
+                <p><em>{{ recipe.created_at|date:"M d, Y" }}</em></p>
+                <a href="{% url 'recipe-detail-local' recipe.id %}" class="btn">View</a>
+
             </div>
         {% endfor %}
     </div>

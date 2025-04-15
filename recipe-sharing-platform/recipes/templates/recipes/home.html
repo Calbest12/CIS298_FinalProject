@@ -8,6 +8,9 @@
     {% for recipe in most_viewed %}
         <div class="recipe-card">
             <h3>{{ recipe.title }}</h3>
+            {% if recipe.image %}
+                <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+            {% endif %}
             <p>Views: {{ recipe.views }}</p>
             <a href="{% url 'recipe-detail-local' recipe.id %}" class="btn">View</a>
         </div>
@@ -19,6 +22,9 @@
     {% for recipe in highest_rated %}
         <div class="recipe-card">
             <h3>{{ recipe.title }}</h3>
+            {% if recipe.image %}
+                <img src="{{ recipe.image.url }}" alt="{{ recipe.title }}">
+            {% endif %}
             <p>Rating: {{ recipe.rating }}</p>
             <a href="{% url 'recipe-detail-local' recipe.id %}" class="btn">View</a>
         </div>
