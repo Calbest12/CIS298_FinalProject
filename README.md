@@ -19,3 +19,9 @@ Third Commit (Khalil) - Enhanced the website's base design and interactivity:
                       - Highlight and Border-Radius Effect: Added a subtle border-radius and highlight effect when hovering on the navbar links to make the navigation smoother and more visually appealing.
                       - Updated Color Scheme: Refined the color scheme, incorporating a light cyan background and complementary shades of blue for a modern, cohesive look.
                       - Improved Layout: Adjusted the layout for a cleaner, more user-friendly design.
+
+Fourth Commit (Calli) - Created ability for users to log in and logout (returns to home page)
+                      - Created a home page showing most viewed and highest rated recipes (Ability to rate recipes needs to be implemented)
+                      - Users can view all recipes they've added when logged in
+                      - Ability to add images to recipes
+                      - Need to edit home page to show who submitted what reciepes and have added images show up when you view a recipe created by a user
