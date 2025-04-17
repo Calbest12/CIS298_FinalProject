@@ -14,7 +14,8 @@
     <p>{{ recipe.instructions|linebreaks }}</p>
 
     {% if user == recipe.author %}
-    <div style="margin-top: 20px;">
+    <div style="margin-top: 20px; display: flex; gap: 10px;">
+        <a href="{% url 'recipe-edit' recipe.id %}" class="btn" style="background-color: #4CAF50;">Edit Recipe</a>
         <a href="{% url 'recipe-delete' recipe.id %}" class="btn" style="background-color: #f44336;">Delete Recipe</a>
     </div>
     {% endif %}

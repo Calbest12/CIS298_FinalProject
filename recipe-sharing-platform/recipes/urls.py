@@ -21,4 +21,5 @@ urlpatterns = [
     path('my-recipes/', my_recipes, name='recipe-my-list'),
     path('recipe/<int:pk>/', views.recipe_detail_local, name='recipe-detail-local'),
     path('recipe/<int:pk>/delete/', views.recipe_delete, name='recipe-delete'),
+    path('recipe/<int:pk>/edit/', views.recipe_edit, name='recipe-edit'),
 ]

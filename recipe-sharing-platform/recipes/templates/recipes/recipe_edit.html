@@ -1,0 +1,13 @@
+{% extends "recipes/base.html" %}
+
+{% block title %}Edit Recipe - {{ recipe.title }}{% endblock %}
+
+{% block content %}
+    <h1>Edit Recipe</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn">Save Changes</button>
+        <a href="{% url 'recipe-detail-local' recipe.id %}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}

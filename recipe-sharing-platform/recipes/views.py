@@ -66,6 +66,27 @@ def recipe_delete(request, pk):
     return render(request, 'recipes/recipe_delete.html', {'recipe': recipe})
 
 
+@login_required
+def recipe_edit(request, pk):
+    recipe = get_object_or_404(Recipe, pk=pk)
+
+    # Check if the logged-in user is the owner of the recipe
+    if recipe.author != request.user:
+        messages.error(request, "You don't have permission to edit this recipe.")
+        return redirect('recipe-my-list')
+
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, request.FILES, instance=recipe)
+        if form.is_valid():
+            form.save()
+            messages.success(request, f"Recipe '{recipe.title}' has been updated.")
+            return redirect('recipe-detail-local', pk=recipe.pk)
+    else:
+        form = RecipeForm(instance=recipe)
+
+    return render(request, 'recipes/recipe_edit.html', {'form': form, 'recipe': recipe})
+
+
 def search_recipes(request):
     results = []
     form = RecipeSearchForm()
