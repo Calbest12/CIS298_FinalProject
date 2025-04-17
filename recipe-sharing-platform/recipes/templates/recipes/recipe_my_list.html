@@ -12,8 +12,10 @@
                 {% endif %}
                 <p>{{ recipe.description|truncatechars:100 }}</p>
                 <p><em>{{ recipe.created_at|date:"M d, Y" }}</em></p>
-                <a href="{% url 'recipe-detail-local' recipe.id %}" class="btn">View</a>
-
+                <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+                    <a href="{% url 'recipe-detail-local' recipe.id %}" class="btn">View</a>
+                    <a href="{% url 'recipe-delete' recipe.id %}" class="btn" style="background-color: #f44336;">Delete</a>
+                </div>
             </div>
         {% endfor %}
     </div>

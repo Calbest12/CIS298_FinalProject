@@ -50,6 +50,22 @@ def recipe_create(request):
     return render(request, 'recipes/recipe_form.html', {'form': form})
 
 
+@login_required
+def recipe_delete(request, pk):
+    recipe = get_object_or_404(Recipe, pk=pk)
+
+    if recipe.author != request.user:
+        messages.error(request, "You don't have permission to delete this recipe.")
+        return redirect('recipe-my-list')
+
+    if request.method == 'POST':
+        recipe.delete()
+        messages.success(request, f"Recipe '{recipe.title}' has been deleted.")
+        return redirect('recipe-my-list')
+
+    return render(request, 'recipes/recipe_delete.html', {'recipe': recipe})
+
+
 def search_recipes(request):
     results = []
     form = RecipeSearchForm()
