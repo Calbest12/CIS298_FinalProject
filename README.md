@@ -27,3 +27,7 @@ Fourth Commit (Calli) - Created ability for users to log in and logout (returns 
                       - Need to edit home page to show who submitted what reciepes and have added images show up when you view a recipe created by a user
 
 Fifth Commit (Calli) - Fixed image issues where image was not showing up upon viewing recipe or having image saving correctly from when recipe was adding
+
+Sixth Commit (Zach)   - Added the ability for user's to delete recipes from their saved recipe lists
+                      - Added recipe_delete function to views.py, URL route added to urls.py, and a new recipe_delete.html for proper user interaction
+                      - Also updated recipe_detail_local.html and recipe_my_list.html to include delete buttons
