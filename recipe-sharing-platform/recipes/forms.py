@@ -1,5 +1,5 @@
 from django import forms
-from .models import Recipe
+from .models import Recipe, Rating
 
 class RecipeForm(forms.ModelForm):
     class Meta:
@@ -17,7 +17,6 @@ class RecipeSearchForm(forms.Form):
         ('indian', 'Indian'),
         ('chinese', 'Chinese'),
         ('american', 'American'),
-        # Add more cuisines as needed
     ])
     diet = forms.ChoiceField(required=False, choices=[
         ('', 'No Dietary Restrictions'),
@@ -25,3 +24,18 @@ class RecipeSearchForm(forms.Form):
         ('vegan', 'Vegan'),
         ('gluten free', 'Gluten Free'),
     ])
+
+class RatingForm(forms.ModelForm):
+    class Meta:
+        model = Rating
+        fields = ['score']  # Rating field
+
+    def __init__(self, *args, **kwargs):
+        self.recipe = kwargs.pop('recipe', None)  # Pass recipe instance to the form
+        super(RatingForm, self).__init__(*args, **kwargs)
+
+    def save(self, *args, **kwargs):
+        self.instance.recipe = self.recipe  # Link rating to the correct recipe
+        self.instance.user = kwargs.pop('user')  # Link rating to the current user
+        return super().save(*args, **kwargs)
+
