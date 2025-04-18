@@ -1,15 +1,13 @@
 from django.contrib import messages
-from .forms import RecipeSearchForm
+from .forms import RecipeSearchForm, RecipeForm, RatingForm  # <-- Import RatingForm
 from .services import SpoonacularAPI
 from django.core.paginator import Paginator
-from django.shortcuts import render, redirect
-from .models import Recipe
-from .forms import RecipeForm
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Recipe, Rating
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.views import LoginView
-from django.shortcuts import render, get_object_or_404
 
 class CustomLoginView(LoginView):
     template_name = 'recipes/login.html'
@@ -159,6 +157,22 @@ def register_user(request):
         form = UserCreationForm()
     return render(request, 'recipes/register.html', {'form': form})
 
+@login_required
 def recipe_detail_local(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
-    return render(request, 'recipes/recipe_detail_local.html', {'recipe': recipe})
+
+    # Handle the rating form submission
+    if request.method == 'POST' and request.user.is_authenticated:
+        rating_form = RatingForm(request.POST, recipe=recipe)
+        if rating_form.is_valid():
+            rating = rating_form.save(user=request.user)
+            recipe.update_rating()  # Update the recipe's rating after a new rating submission
+            messages.success(request, f'Thank you for rating "{recipe.title}"!')
+            return redirect('recipe-detail-local', pk=recipe.pk)
+    else:
+        rating_form = RatingForm(recipe=recipe)
+
+    return render(request, 'recipes/recipe_detail_local.html', {
+        'recipe': recipe,
+        'rating_form': rating_form
+    })
