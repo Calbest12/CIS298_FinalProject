@@ -35,3 +35,12 @@ Sixth Commit (Zach)   - Added the ability for user's to delete recipes from thei
 Seventh Commit (Zach) - Added the ability to edit recipes after they are initially saved. Allowing for accessibility options if                         the user has a mistype.
                       - Added recipe_edit function to views.py, URL route added to urls.py, and a new recipe_edit.html for                              accessbility
                       -  Also updated recipe_detail_local.html and recipe_my_list.html to include edit buttons
+
+Eighth Commit (Khalil) – Added working recipe rating system (1-5 stars)
+                       - Set up a new Rating model in models.py to let users rate each recipe from 1 to 5. Each user can rate a recipe.
+                       - Created a new RatingForm in forms.py to make submitting ratings easy through a dropdown.
+                       - Updated the views.py file, specifically in the recipe_detail_local view, to show the rating form on each recipe page and process it when submitted. After a user rates a recipe, it updates the recipe's average rating automatically using a custom method called update_rating().
+                         -Edited the recipe_detail_local.html template to display the rating form right below the recipe details so users can submit their score.
+                         - After you add a recipe, you can go to its detail page and scroll down to the rating section. From there, you can pick a number from 1 to 5 and submit your rating. A success message will show up confirming your rating was saved.
+                          - Also double-checked urls.py to make sure the path for viewing individual recipes (/recipe/<int:pk>/) is correctly pointing to the updated detail view that handles ratings.
+                         -Ran database migrations to create the new recipes_rating table. If you get an error like "no such table: recipes_rating", it means you forgot to run the migrations after adding the model.
