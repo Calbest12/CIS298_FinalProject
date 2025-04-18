@@ -12,7 +12,7 @@ class CustomLogoutView(LogoutView):
 urlpatterns = [
     path('', homepage, name='home'),
     path('logout/', CustomLogoutView.as_view(next_page='home'), name='logout'),
-    path('', views.recipe_list, name='recipe-list'),
+    path('recipes/', views.recipe_list, name='recipe-list'),  # Ensure this route is different from the home page
     path('add/', views.recipe_create, name='recipe-add'),
     path('search/', views.search_recipes, name='recipe-search'),
     path('api/recipe/<int:recipe_id>/', views.recipe_detail_api, name='recipe-detail-api'),
