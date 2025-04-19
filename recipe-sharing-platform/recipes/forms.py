@@ -28,15 +28,15 @@ class RecipeSearchForm(forms.Form):
 class RatingForm(forms.ModelForm):
     class Meta:
         model = Rating
-        fields = ['score']  # Rating field
+        fields = ['score']
 
     def __init__(self, *args, **kwargs):
-        self.recipe = kwargs.pop('recipe', None)  # Pass recipe instance to the form
+        self.recipe = kwargs.pop('recipe', None)
         super(RatingForm, self).__init__(*args, **kwargs)
 
     def save(self, *args, **kwargs):
-        self.instance.recipe = self.recipe  # Link rating to the correct recipe
-        self.instance.user = kwargs.pop('user')  # Link rating to the current user
+        self.instance.recipe = self.recipe
+        self.instance.user = kwargs.pop('user')
         return super().save(*args, **kwargs)
 
 class CommentForm(forms.ModelForm):

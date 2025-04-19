@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.contrib.auth.views import LoginView
+from django.db import models
 
 class CustomLoginView(LoginView):
     template_name = 'recipes/login.html'
@@ -160,6 +161,9 @@ def register_user(request):
 def recipe_detail_local(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
     comments = recipe.comments.order_by('-created_at')
+    Recipe.objects.filter(pk=pk).update(views=models.F('views') + 1)
+
+    recipe.refresh_from_db()
 
     if request.method == 'POST' and request.user.is_authenticated:
         rating_form = RatingForm(request.POST, recipe=recipe)
