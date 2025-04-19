@@ -44,3 +44,6 @@ Eighth Commit (Khalil) – Added working recipe rating system (1-5 stars)
                          - After you add a recipe, you can go to its detail page and scroll down to the rating section. From there, you can pick a number from 1 to 5 and submit your rating. A success message will show up confirming your rating was saved.
                           - Also double-checked urls.py to make sure the path for viewing individual recipes (/recipe/<int:pk>/) is correctly pointing to the updated detail view that handles ratings.
                          -Ran database migrations to create the new recipes_rating table. If you get an error like "no such table: recipes_rating", it means you forgot to run the migrations after adding the model.
+
+Ninth Commit (Calli) - Give users the ability to write comments on user generated receipes. This allows Users to be able to give their reviews about specific recipes and for otheer users to be able to see who wrote what, and what they have to say. 
+                      - Set up a commenting model and form in models.py and forms.py respectively. Updating views.py and the recipe_detail_local.html template to allow users to write their comments and have them saved and submitted correctly.
