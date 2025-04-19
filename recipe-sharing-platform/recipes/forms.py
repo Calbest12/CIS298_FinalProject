@@ -1,5 +1,5 @@
 from django import forms
-from .models import Recipe, Rating
+from .models import Recipe, Rating, Comment
 
 class RecipeForm(forms.ModelForm):
     class Meta:
@@ -38,4 +38,12 @@ class RatingForm(forms.ModelForm):
         self.instance.recipe = self.recipe  # Link rating to the correct recipe
         self.instance.user = kwargs.pop('user')  # Link rating to the current user
         return super().save(*args, **kwargs)
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
+        widgets = {
+            'content': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Leave a comment...'}),
+        }
 

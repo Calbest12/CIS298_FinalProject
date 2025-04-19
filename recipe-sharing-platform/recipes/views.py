@@ -1,9 +1,9 @@
 from django.contrib import messages
-from .forms import RecipeSearchForm, RecipeForm, RatingForm  # <-- Import RatingForm
+from .forms import RecipeSearchForm, RecipeForm, RatingForm, CommentForm
 from .services import SpoonacularAPI
 from django.core.paginator import Paginator
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Recipe, Rating
+from .models import Recipe, Rating, Comment
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
@@ -68,7 +68,6 @@ def recipe_delete(request, pk):
 def recipe_edit(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
 
-    # Check if the logged-in user is the owner of the recipe
     if recipe.author != request.user:
         messages.error(request, "You don't have permission to edit this recipe.")
         return redirect('recipe-my-list')
@@ -160,19 +159,30 @@ def register_user(request):
 @login_required
 def recipe_detail_local(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
+    comments = recipe.comments.order_by('-created_at')
 
-    # Handle the rating form submission
     if request.method == 'POST' and request.user.is_authenticated:
         rating_form = RatingForm(request.POST, recipe=recipe)
+        comment_form = CommentForm(request.POST)
         if rating_form.is_valid():
             rating = rating_form.save(user=request.user)
-            recipe.update_rating()  # Update the recipe's rating after a new rating submission
+            recipe.update_rating()
             messages.success(request, f'Thank you for rating "{recipe.title}"!')
             return redirect('recipe-detail-local', pk=recipe.pk)
+        if comment_form.is_valid():
+            comment = comment_form.save(commit=False)
+            comment.recipe = recipe
+            comment.user = request.user
+            comment.save()
+            messages.success(request, "Comment posted.")
+            return redirect('recipe-detail-local', pk=pk)
     else:
         rating_form = RatingForm(recipe=recipe)
+        comment_form = CommentForm()
 
     return render(request, 'recipes/recipe_detail_local.html', {
         'recipe': recipe,
-        'rating_form': rating_form
+        'rating_form': rating_form,
+        'comments': comments,
+        'comment_form': comment_form,
     })

@@ -127,3 +127,6 @@ SPOONACULAR_API_KEY = '2ed78d4f70384663a0d1bbd73482cfdc'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
