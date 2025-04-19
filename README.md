@@ -47,3 +47,5 @@ Eighth Commit (Khalil) – Added working recipe rating system (1-5 stars)
 
 Ninth Commit (Calli) - Give users the ability to write comments on user generated receipes. This allows Users to be able to give their reviews about specific recipes and for otheer users to be able to see who wrote what, and what they have to say. 
                       - Set up a commenting model and form in models.py and forms.py respectively. Updating views.py and the recipe_detail_local.html template to allow users to write their comments and have them saved and submitted correctly.
+
+Tenth Commit (Calli) - Populated the Recipes to have fields for presentation for class and ability to show off different areas of the website. Also clean up the code for final submission. 
