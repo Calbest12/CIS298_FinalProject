@@ -49,3 +49,5 @@ Ninth Commit (Calli) - Give users the ability to write comments on user generate
                       - Set up a commenting model and form in models.py and forms.py respectively. Updating views.py and the recipe_detail_local.html template to allow users to write their comments and have them saved and submitted correctly.
 
 Tenth Commit (Calli) - Populated the Recipes to have fields for presentation for class and ability to show off different areas of the website. Also clean up the code for final submission. 
+
+Calli Best Group Eval - [GroupEval.docx](https://github.com/user-attachments/files/19828601/GroupEval.docx)
