@@ -53,3 +53,6 @@ Tenth Commit (Calli) - Populated the Recipes to have fields for presentation for
 Calli Best Group Eval - [Best_GroupEval.pdf](https://github.com/user-attachments/files/19838651/Best_GroupEval.pdf)
 
 Khalil Aun Group Eval - [Khalil Group Eval.pdf](https://github.com/user-attachments/files/19838798/Khalil.Group.Eval.pdf)
+
+Zach Warsaw Group Eval - [ZW-GroupEval.pdf](https://github.com/user-attachments/files/19839376/ZW-GroupEval.pdf)
+
