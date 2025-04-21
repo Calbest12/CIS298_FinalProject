@@ -50,5 +50,6 @@ Ninth Commit (Calli) - Give users the ability to write comments on user generate
 
 Tenth Commit (Calli) - Populated the Recipes to have fields for presentation for class and ability to show off different areas of the website. Also clean up the code for final submission. 
 
-Calli Best Group Eval - [GroupEval.docx](https://github.com/user-attachments/files/19828601/GroupEval.docx)
+Calli Best Group Eval - [Best_GroupEval.pdf](https://github.com/user-attachments/files/19838651/Best_GroupEval.pdf)
+
 Khalil Aun Group Eval - [Khalil Group Eval.docx](https://github.com/user-attachments/files/19838502/Khalil.Group.Eval.docx)
